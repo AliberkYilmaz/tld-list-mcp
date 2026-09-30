@@ -1,6 +1,6 @@
 {
   "name": "tld-list-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Unofficial MCP server for TLD-List pricing and RDAP-assisted domain availability",
   "type": "module",
   "main": "./dist/index.js",
@@ -52,12 +52,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aliberkyilmaz/tld-list-mcp.git"
+    "url": "git+https://github.com/AliberkYilmaz/tld-list-mcp.git"
   },
   "bugs": {
-    "url": "https://github.com/aliberkyilmaz/tld-list-mcp/issues"
+    "url": "https://github.com/AliberkYilmaz/tld-list-mcp/issues"
   },
-  "homepage": "https://github.com/aliberkyilmaz/tld-list-mcp#readme",
+  "homepage": "https://github.com/AliberkYilmaz/tld-list-mcp#readme",
   "dependencies": {
     "@modelcontextprotocol/server": "^2.2.0",
     "zod": "^4.6.5"

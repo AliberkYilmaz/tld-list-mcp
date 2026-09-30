@@ -70,8 +70,23 @@ This project is independently maintained and is not endorsed, sponsored, or main
 
 ## Installation
 
+Run the published package directly:
+
 ```bash
-git clone https://github.com/aliberkyilmaz/tld-list-mcp.git
+npx -y tld-list-mcp
+```
+
+Or install it globally:
+
+```bash
+npm install --global tld-list-mcp
+tld-list-mcp
+```
+
+For development from source:
+
+```bash
+git clone https://github.com/AliberkYilmaz/tld-list-mcp.git
 cd tld-list-mcp
 npm install
 cp .env.example .env
@@ -80,7 +95,7 @@ npm run build
 
 Set credentials through the MCP client's environment configuration. The server intentionally does not load `.env` itself, which keeps its dependency footprint small and makes credential injection explicit. For shell-only development, export the variables before running `npm run dev`.
 
-The package is prepared for future npm publication. After it is published, the configured binary will allow `npx tld-list-mcp`; this repository does not claim that the package is published today.
+The public package is available at [npmjs.com/package/tld-list-mcp](https://www.npmjs.com/package/tld-list-mcp).
 
 ## TLD-List API keys
 
