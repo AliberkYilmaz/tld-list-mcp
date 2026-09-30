@@ -4,6 +4,12 @@ All notable changes to this project will be documented here. This project follow
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-10-01
+
+### Fixed
+
+- Resolve npm-bin symlinks when detecting direct CLI execution so `npx tld-list-mcp` starts the stdio server.
+
 ## [0.1.2] - 2026-10-01
 
 ### Fixed
@@ -40,7 +46,8 @@ All notable changes to this project will be documented here. This project follow
 - Mocked unit tests, optional real-API integration tests, and Node 20/22/24 CI.
 - npm publishing metadata and verified client configuration examples.
 
-[Unreleased]: https://github.com/AliberkYilmaz/tld-list-mcp/compare/v0.1.2...HEAD
+[Unreleased]: https://github.com/AliberkYilmaz/tld-list-mcp/compare/v0.1.3...HEAD
+[0.1.3]: https://github.com/AliberkYilmaz/tld-list-mcp/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/AliberkYilmaz/tld-list-mcp/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/AliberkYilmaz/tld-list-mcp/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/AliberkYilmaz/tld-list-mcp/releases/tag/v0.1.0

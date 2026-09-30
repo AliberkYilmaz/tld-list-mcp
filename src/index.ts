@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-import { pathToFileURL } from 'node:url';
-
 import { StdioServerTransport } from '@modelcontextprotocol/server/stdio';
 
 import {
@@ -14,6 +12,7 @@ import { RdapClient } from './clients/rdap-client.js';
 import { TldListClient } from './clients/tld-list-client.js';
 import { loadConfig } from './config/env.js';
 import { createLogger } from './config/logger.js';
+import { isMainModule } from './entrypoint.js';
 import { safeError } from './errors/errors.js';
 import { createServer } from './server.js';
 
@@ -64,8 +63,7 @@ export async function main(): Promise<void> {
   await server.connect(transport);
 }
 
-const entryPoint = process.argv[1];
-if (entryPoint && import.meta.url === pathToFileURL(entryPoint).href) {
+if (isMainModule(import.meta.url)) {
   main().catch((error: unknown) => {
     const safe = safeError(error);
     process.stderr.write(`[tld-list-mcp] ${safe.code}: ${safe.message}\n`);
