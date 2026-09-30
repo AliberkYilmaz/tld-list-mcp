@@ -64,7 +64,7 @@ This project is independently maintained and is not endorsed, sponsored, or main
 
 ## Requirements
 
-- Node.js 20 or newer
+- Node.js 22 or newer
 - A working TLD-List public/private API key pair for pricing and metadata tools
 - Outbound HTTPS access to `api.tld-list.com`, and to IANA/RDAP services when RDAP is enabled
 
@@ -93,7 +93,14 @@ cp .env.example .env
 npm run build
 ```
 
-Set credentials through the MCP client's environment configuration. The server intentionally does not load `.env` itself, which keeps its dependency footprint small and makes credential injection explicit. For shell-only development, export the variables before running `npm run dev`.
+Set credentials through the MCP client's environment configuration. The server intentionally does not load `.env` itself, which keeps its dependency footprint small and makes credential injection explicit. For shell-only development, edit `.env`, export its values, and then start the server:
+
+```bash
+set -a
+source .env
+set +a
+npm run dev
+```
 
 The public package is available at [npmjs.com/package/tld-list-mcp](https://www.npmjs.com/package/tld-list-mcp).
 
@@ -131,7 +138,7 @@ It does not scrape the website or use private endpoints.
 
 ## MCP client configuration
 
-Replace `/absolute/path/to/tld-list-mcp` and the key placeholders. MCP stdio reserves stdout for protocol messages; this server writes diagnostics only to stderr.
+Replace the key placeholders. The examples run the published npm package directly; pin `tld-list-mcp@<version>` in `args` when reproducible installs are required. MCP stdio reserves stdout for protocol messages; this server writes diagnostics only to stderr.
 
 ### Codex CLI and IDE extension
 
@@ -139,8 +146,8 @@ Codex shares MCP configuration between the CLI and IDE extension. Add this to `~
 
 ```toml
 [mcp_servers.tld-list]
-command = "node"
-args = ["/absolute/path/to/tld-list-mcp/dist/index.js"]
+command = "npx"
+args = ["-y", "tld-list-mcp"]
 env = { TLD_LIST_PUBLIC_KEY = "your-public-key", TLD_LIST_PRIVATE_KEY = "your-private-key" }
 ```
 
@@ -149,7 +156,7 @@ Verify with `codex mcp list`. Configuration shape and location are based on the 
 ### Claude Code
 
 ```bash
-claude mcp add-json tld-list '{"type":"stdio","command":"node","args":["/absolute/path/to/tld-list-mcp/dist/index.js"],"env":{"TLD_LIST_PUBLIC_KEY":"your-public-key","TLD_LIST_PRIVATE_KEY":"your-private-key"}}'
+claude mcp add-json tld-list '{"type":"stdio","command":"npx","args":["-y","tld-list-mcp"],"env":{"TLD_LIST_PUBLIC_KEY":"your-public-key","TLD_LIST_PRIVATE_KEY":"your-private-key"}}'
 claude mcp get tld-list
 ```
 
@@ -164,8 +171,8 @@ Create `.cursor/mcp.json` in a project or `~/.cursor/mcp.json` globally:
   "mcpServers": {
     "tld-list": {
       "type": "stdio",
-      "command": "node",
-      "args": ["/absolute/path/to/tld-list-mcp/dist/index.js"],
+      "command": "npx",
+      "args": ["-y", "tld-list-mcp"],
       "env": {
         "TLD_LIST_PUBLIC_KEY": "your-public-key",
         "TLD_LIST_PRIVATE_KEY": "your-private-key"
@@ -186,8 +193,8 @@ Create `.vscode/mcp.json`:
   "servers": {
     "tld-list": {
       "type": "stdio",
-      "command": "node",
-      "args": ["/absolute/path/to/tld-list-mcp/dist/index.js"],
+      "command": "npx",
+      "args": ["-y", "tld-list-mcp"],
       "env": {
         "TLD_LIST_PUBLIC_KEY": "your-public-key",
         "TLD_LIST_PRIVATE_KEY": "your-private-key"
@@ -201,7 +208,9 @@ VS Code also supports input variables for secrets; avoid committing literal keys
 
 ### Development configuration
 
-Any compatible stdio client can run the TypeScript entrypoint during development:
+To run a locally built checkout instead of the npm package, use `"command": "node"` and `"args": ["/absolute/path/to/tld-list-mcp/dist/index.js"]` in the equivalent client configuration.
+
+Any compatible stdio client can also run the TypeScript entrypoint during development:
 
 ```json
 {
@@ -313,6 +322,7 @@ Bulk limits are intentionally conservative: 20 names, 100 explicitly selected TL
 - TLD-List endpoints are a closed internal union; MCP input cannot select a URL.
 - RDAP endpoints come only from the HTTPS IANA bootstrap registry.
 - No shell execution, dynamic code execution, filesystem tools, or arbitrary URL-fetching tool is exposed.
+- npm releases use GitHub Actions trusted publishing with short-lived OpenID Connect credentials and npm provenance; no long-lived npm token is stored in GitHub.
 - Run `npm run audit` and review lockfile changes before release.
 - TLD-List's terms prohibit scraping and impose restrictions on commercial reuse/data redistribution. This project uses the documented API only. The MIT license covers this project's code, not TLD-List data or trademarks; users remain responsible for complying with TLD-List's terms.
 

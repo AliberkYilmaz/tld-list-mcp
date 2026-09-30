@@ -13,6 +13,7 @@ import { listRegistrars, listRegistrarsInputSchema } from './tools/list-registra
 import { listTlds, listTldsInputSchema } from './tools/list-tlds.js';
 import { searchTldVariants, searchTldVariantsInputSchema } from './tools/search-tld-variants.js';
 import { safeError } from './errors/errors.js';
+import { packageName, packageVersion } from './package-metadata.js';
 
 const readOnlyAnnotations = {
   readOnlyHint: true,
@@ -23,7 +24,7 @@ const readOnlyAnnotations = {
 
 export function createServer(dependencies: ToolDependencies): McpServer {
   const server = new McpServer(
-    { name: 'tld-list-mcp', version: '0.1.0' },
+    { name: packageName, version: packageVersion },
     {
       instructions:
         'Use search_tld_variants for name + extension discovery, compare_registrars for one TLD across selected registrars, compare_tlds for extension-level comparisons, and calculate_domain_cost for same-registrar multi-year arithmetic. TLD-List provides pricing and TLD metadata; RDAP provides availability inference separately.',

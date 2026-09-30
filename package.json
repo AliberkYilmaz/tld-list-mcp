@@ -1,6 +1,6 @@
 {
   "name": "tld-list-mcp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Unofficial MCP server for TLD-List pricing and RDAP-assisted domain availability",
   "type": "module",
   "main": "./dist/index.js",
@@ -34,7 +34,7 @@
     "prepublishOnly": "npm run typecheck && npm run lint && npm test && npm run build"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.0.0"
   },
   "keywords": [
     "mcp",
