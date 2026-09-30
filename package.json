@@ -12,7 +12,7 @@
     }
   },
   "bin": {
-    "tld-list-mcp": "./dist/index.js"
+    "tld-list-mcp": "dist/index.js"
   },
   "files": [
     "dist",
